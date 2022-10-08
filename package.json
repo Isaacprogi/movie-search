@@ -1,7 +1,7 @@
 {
   "name": "fooling",
   "version": "0.1.0",
-  "homepage": "https://Isaacprogi.github.io/movie-search",
+  "homepage": "http://Isaacprogi.github.io/movie-search",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
