@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { useEffect } from 'react'
+import {useRef} from 'react'
+import axios from 'axios'
+import './App.css'
+import { NavBar } from './components/NavBar'
+import { useMovieContext } from './hooks/useMovieContext'
+import Home from './pages/Home'
 
 function App() {
+  const {setMovies} = useMovieContext()
+  const searchRef = useRef('')
+  
+  
+  const API_URL = 'http://www.omdbapi.com?apikey=6bf967b0'
+  const searchMovies = async (title) => {
+    try {
+      const response = await axios.get(`${API_URL}&s=${title}`)
+      setMovies(response.data.Search)
+    } catch (err) {
+      console.log(err)
+    }
+    
+  }
+  
+  useEffect(() => {
+    searchMovies('superman')
+    // eslint-disable-next-line
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <div id='app-scroller' className='app'>
+          <NavBar searchRef={searchRef} searchMovies={searchMovies}/>
+          <Home/>
+     </div>
+  )
 }
 
-export default App;
+export default App
